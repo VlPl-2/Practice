@@ -39,7 +39,17 @@ class RetrofitFactory {
         .client(builder.build())
         .build()
 
-    val UserApiInterface: UserApiInterface = retrofit().create(
-        UserApiInterface::class.java
-    )
+    //val UserApiInterface: UserApiInterface = retrofit().create(
+    //    UserApiInterface::class.java
+    //)
+
+    fun create() : UserApiInterface {
+
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .build()
+        return retrofit.create(UserApiInterface::class.java)
+
+    }
 }
