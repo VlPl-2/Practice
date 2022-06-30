@@ -1,6 +1,5 @@
-package com.example.practice.data.repository.Remote
+package com.example.practice.data.repository.API
 
-import android.net.wifi.hotspot2.pps.Credential
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,12 +7,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitFactory {
-
-    companion object{
-        const val BASE_URL = "https://reqres.in/api/users?page=2"
-        const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
-        }
+object RetrofitFactory {
+    const val BASE_URL = "https://reqres.in/api/"
+    const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
 
     private val interceptor = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -39,17 +35,8 @@ class RetrofitFactory {
         .client(builder.build())
         .build()
 
-    //val UserApiInterface: UserApiInterface = retrofit().create(
-    //    UserApiInterface::class.java
-    //)
+    val userApiInterface: UserApiInterface = retrofit().create(
+        UserApiInterface::class.java
+    )
 
-    fun create() : UserApiInterface {
-
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-        return retrofit.create(UserApiInterface::class.java)
-
-    }
 }
