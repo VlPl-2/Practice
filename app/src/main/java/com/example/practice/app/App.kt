@@ -1,6 +1,7 @@
 package com.example.practice.app
 
 import android.app.Application
+import com.example.practice.di.appModule
 import com.example.practice.di.dataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -11,7 +12,7 @@ class App:Application() {
 
         startKoin{
             androidContext(this@App)
-            modules(listOf(dataModule))
+            modules(listOf(dataModule, appModule))
         }
 
     }

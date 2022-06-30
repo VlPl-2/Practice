@@ -6,56 +6,65 @@ import androidx.lifecycle.viewModelScope
 //замена на внутреннюю модель
 import com.example.practice.data.repository.API.Datum
 import com.example.practice.data.repository.API.RemoteImpl
+import com.example.practice.data.repository.DBrepository.DataBaseImpl
 import com.example.practice.data.repository.DBrepository.UserItem
 import com.example.practice.data.repository.DBrepository.UserItemDAO
+import com.example.practice.domain.models.UserModel
 import com.example.practice.domain.usecase.GetCollectionFromURLUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-//private val userItemDAO: UserItemDAO
-class MainViewModel(): ViewModel() {
+class MainViewModel(private val dataBaseImpl: DataBaseImpl) : ViewModel() {
     //
     //работа с получением данных по ссылке
     private val remoteUserImpl = RemoteImpl()
     private val getCollectionFromURLUseCase = GetCollectionFromURLUseCase(remoteUserImpl)
 
     //замена на внутреннюю модель
-    private val _usersResultStateFlow = MutableStateFlow<List<Datum>>(emptyList())
-    val usersResultStateFlow: StateFlow<List<Datum>>
-    get() = _usersResultStateFlow
+    private val _usersResultStateFlow = MutableStateFlow<List<UserModel>>(emptyList())
+    val usersResultStateFlow: StateFlow<List<UserModel>>
+        get() = _usersResultStateFlow
+
+    //private  val dataBaseImpl = DataBaseImpl()
+
 
     //
-    fun loadUserData(){
+    /* переписать под <UserModel>
+    fun loadUserData() {
         viewModelScope.launch {
             _usersResultStateFlow.emit(getCollectionFromURLUseCase.GetAllUserList())
             //userApiInterface.getUsers().body()?.data?.let { _usersResultStateFlow.emit(it) }
         }
     }
-
+*/
     //
     //работа с БД
     //добавление созданного элемента в БД
-    /*
-    private fun insertItem(item: UserItem) {
+
+    public fun insertItem(idUser: Long, firstNameUser: String, lastNameUser: String) {
         viewModelScope.launch {
-            userItemDAO.insert(item)
+            dataBaseImpl.saveData(
+                UserModel(
+                    id = idUser,
+                    firstName = firstNameUser,
+                    lastName = lastNameUser,
+                    email = "",
+                    avatar = ""
+                )
+            )
         }
     }
 
-    private fun getNewItemEntry(
-        email: String,
-        firstName: String,
-        lastName: String,
-        avatar: String): UserItem {
-        return UserItem(
-            email = email,
-            firstName = firstName,
-            lastName = lastName,
-            avatar = avatar
-        )
+    fun loadUserDataBD() {
+        viewModelScope.launch {
+            dataBaseImpl.getData().collect{
+                _usersResultStateFlow.emit(it)
+            }
+        }
     }
-    */
+
 }
 
 /*

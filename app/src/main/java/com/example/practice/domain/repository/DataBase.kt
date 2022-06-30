@@ -1,9 +1,12 @@
 package com.example.practice.domain.repository
 
 import com.example.practice.data.repository.API.Datum
+import com.example.practice.data.repository.DBrepository.UserItem
+import com.example.practice.domain.models.UserModel
+import kotlinx.coroutines.flow.Flow
 
 interface DataBase {
-    suspend fun getData(): List<Datum>
+    suspend fun getData(): Flow<List<UserModel>>
 
-    suspend fun saveData(): List<Datum>
+    suspend fun saveData(userModel: UserModel)
 }
