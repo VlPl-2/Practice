@@ -1,8 +1,7 @@
 package com.example.practice.data.mapping
 
-import androidx.room.ColumnInfo
-import com.example.practice.data.repository.API.Datum
-import com.example.practice.data.repository.DBrepository.UserItem
+import com.example.practice.data.models.UserApi
+import com.example.practice.data.models.UserItem
 import com.example.practice.domain.models.UserModel
 
 class UserMapping() {
@@ -25,4 +24,15 @@ class UserMapping() {
             avatar = userModel.avatar
         )
     }
+
+    fun mappingDatumToItem(datum: UserApi): UserItem {
+        return UserItem(
+            id = datum.id,
+            email = datum.email,
+            firstName = datum.firstName,
+            lastName = datum.lastName,
+            avatar = datum.avatar
+        )
+    }
+
 }

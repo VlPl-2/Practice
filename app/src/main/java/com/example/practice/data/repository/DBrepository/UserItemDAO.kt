@@ -1,6 +1,7 @@
 package com.example.practice.data.repository.DBrepository
 
 import androidx.room.*
+import com.example.practice.data.models.UserItem
 import kotlinx.coroutines.flow.Flow
 
 //команды взаимодействия с базой данных
@@ -18,6 +19,10 @@ interface UserItemDAO {
     // Если пользователь пытается добавить существующий элемент, запрос игнорируется
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(item: UserItem)
+
+    //добавить все элементы
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(list: List<UserItem>)
 
     //обновить элемент
     @Update

@@ -7,9 +7,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object RetrofitFactory {
-    const val BASE_URL = "https://reqres.in/api/"
-    const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+class RetrofitFactory {
+
+    companion object{
+        const val BASE_URL = "https://reqres.in/api/"
+        const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+    }
 
     private val interceptor = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
