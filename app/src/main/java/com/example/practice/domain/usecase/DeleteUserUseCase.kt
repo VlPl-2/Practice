@@ -1,4 +1,8 @@
 package com.example.practice.domain.usecase
 
-class DeleteUserUseCase {
+import com.example.practice.domain.models.UserModel
+import com.example.practice.domain.repository.DataBase
+
+class DeleteUserUseCase(val dataBase: DataBase) {
+    suspend fun deleteItem(userModel: UserModel) = dataBase.deleteItem(userModel)
 }

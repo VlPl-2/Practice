@@ -8,6 +8,8 @@ val appModule = module{
     viewModel<MainViewModel>{
         MainViewModel(
             saveCollectionInDataBaseUseCase = get(),
-            showUsersFromDataBaseUseCase = get()
+            showUsersFromDataBaseUseCase = get(),
+            deleteUserUseCase = get(),
+            showCurrentUserDataUseCase = get()
         ) }
 }

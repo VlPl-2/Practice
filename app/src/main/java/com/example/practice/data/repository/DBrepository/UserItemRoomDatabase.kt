@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.practice.data.models.UserItem
 
+//база данных
 @Database(entities = [UserItem::class], version = 1, exportSchema = false)
 abstract class UserItemRoomDatabase: RoomDatabase() {
     abstract fun userItemDao(): UserItemDAO

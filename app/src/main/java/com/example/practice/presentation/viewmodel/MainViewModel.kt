@@ -4,15 +4,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 //замена на внутреннюю модель
 import com.example.practice.domain.models.UserModel
-import com.example.practice.domain.usecase.SaveCollectionInDataBaseUseCase
+import com.example.practice.domain.usecase.DeleteUserUseCase
+import com.example.practice.domain.usecase.SaveItemInDataBaseUseCase
+import com.example.practice.domain.usecase.ShowCurrentUserDataUseCase
 import com.example.practice.domain.usecase.ShowUsersFromDataBaseUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MainViewModel(
-    val saveCollectionInDataBaseUseCase: SaveCollectionInDataBaseUseCase,
-    val showUsersFromDataBaseUseCase: ShowUsersFromDataBaseUseCase
+    val saveCollectionInDataBaseUseCase: SaveItemInDataBaseUseCase,
+    val showUsersFromDataBaseUseCase: ShowUsersFromDataBaseUseCase,
+    val deleteUserUseCase: DeleteUserUseCase,
+    val showCurrentUserDataUseCase: ShowCurrentUserDataUseCase
 ) : ViewModel() {
 
     //замена на внутреннюю модель
@@ -37,11 +43,28 @@ class MainViewModel(
         }
     }
 
+
+    //
+    //переделать под id
+    //удаление элемента из базы данных по ID
+    fun deleteItem(id: Int){
+        viewModelScope.launch {
+            deleteUserUseCase.deleteItem(showCurrentUserDataUseCase.showCurrent(id).first())
+        }
+    }
+    //получение элемента из БД по ID
+    fun getItemByID(id: Int){
+        viewModelScope.launch {
+            showCurrentUserDataUseCase.showCurrent(id)
+        }
+    }
+
     //загрузка базы данных
+
     fun loadUserDataBD() {
         viewModelScope.launch {
             showUsersFromDataBaseUseCase.getData().collect {
-                _usersResultStateFlow.emit(it)
+                    _usersResultStateFlow.emit(it)
             }
         }
     }
