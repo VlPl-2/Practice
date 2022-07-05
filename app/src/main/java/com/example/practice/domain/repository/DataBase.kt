@@ -8,7 +8,7 @@ interface DataBase {
 
     suspend fun saveData(userModel: UserModel)
 
-    suspend fun deleteItem(userModel: UserModel)
+    suspend fun deleteItem(id: Int)
 
     //есть ли смысл передавать в потоке 1 элемент?
     suspend fun showCurrent(id: Int): Flow<UserModel>

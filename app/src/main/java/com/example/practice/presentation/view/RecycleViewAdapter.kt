@@ -3,6 +3,7 @@ package com.example.practice.presentation.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.practice.R
@@ -14,23 +15,14 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 
-class RecycleViewAdapter(
-    private val onItemClicked: (position: Int, userModel: UserModel) -> Unit
-) : RecyclerView.Adapter<RecycleViewAdapter.UsersHolder>() {
+class RecycleViewAdapter() : RecyclerView.Adapter<RecycleViewAdapter.UsersHolder>() {
 
     val usersList = ArrayList<UserModel>()
 
     class UsersHolder(
         view: View,
-        private val onItemClicked: (position: Int, userModel: UserModel) -> Unit
     ) : RecyclerView.ViewHolder(view) {
         private val binding = RecycleViewItemBinding.bind(view)
-
-        fun saveParams(position: Int, userModel: UserModel){
-            itemView.setOnClickListener{
-                onItemClicked(position, userModel)
-            }
-        }
 
         fun bind(user: UserModel, position: Int? = null) {
             binding.firstLastName.text = user.firstName + " " + user.lastName
@@ -41,13 +33,25 @@ class RecycleViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.recycle_view_item, parent, false)
-        return UsersHolder(view, onItemClicked)
+        return UsersHolder(view)
     }
 
 
     override fun onBindViewHolder(holder: UsersHolder, position: Int) {
         holder.bind(usersList[position], position)
-        holder.saveParams(position, usersList[position])
+
+        holder.itemView.setOnClickListener() {
+            val params = arrayOf(
+                usersList[position].id.toString(),
+                usersList[position].firstName,
+                usersList[position].lastName,
+                usersList[position].email,
+                usersList[position].avatar
+            )
+            val action = UserListFragmentDirections
+                .actionUserListFragmentToUserDetailsFragment(params)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -60,8 +64,8 @@ class RecycleViewAdapter(
     }
 
     //добавление списком
-    fun addUsers(list: List<UserModel>) {
+    fun refreshUsers(list: List<UserModel>) {
+        usersList.clear()
         list.forEach { user -> addUser(user) }
     }
-
 }

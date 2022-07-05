@@ -37,9 +37,9 @@ class DataBaseImpl(
             .insert(userMapping.mappingModelToItem(userModel))
     }
 
-    override suspend fun deleteItem(userModel: UserModel) {
+    override suspend fun deleteItem(id: Int) {
         userItemRoomDatabase.userItemDao()
-            .delete(userMapping.mappingModelToItem(userModel))
+            .deleteFromId(id)
     }
 
     override suspend fun showCurrent(id: Int): Flow<UserModel> {

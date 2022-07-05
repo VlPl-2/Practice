@@ -1,4 +1,8 @@
 package com.example.practice.presentation.viewmodel
 
-class FragmentViewModel {
+import androidx.lifecycle.ViewModel
+
+class FragmentViewModel: ViewModel() {
+
+
 }

@@ -29,15 +29,15 @@ class MainViewModel(
     //
     //работа с БД
     //добавление созданного элемента в БД
-    fun insertItem(idUser: Long, firstNameUser: String, lastNameUser: String) {
+    fun insertItem(id: Long, firstName: String, lastNameUser: String, email:String, avatar:String) {
         viewModelScope.launch {
             saveCollectionInDataBaseUseCase.saveData(
                 UserModel(
-                    id = idUser,
-                    firstName = firstNameUser,
+                    id = id,
+                    firstName = firstName,
                     lastName = lastNameUser,
-                    email = "",
-                    avatar = ""
+                    email = email,
+                    avatar = avatar
                 )
             )
         }
@@ -47,13 +47,14 @@ class MainViewModel(
     //
     //переделать под id
     //удаление элемента из базы данных по ID
-    fun deleteItem(id: Int){
+    fun deleteItem(id: Int) {
         viewModelScope.launch {
-            deleteUserUseCase.deleteItem(showCurrentUserDataUseCase.showCurrent(id).first())
+            deleteUserUseCase.deleteItem(id)
         }
     }
+
     //получение элемента из БД по ID
-    fun getItemByID(id: Int){
+    fun getItemByID(id: Int) {
         viewModelScope.launch {
             showCurrentUserDataUseCase.showCurrent(id)
         }
@@ -64,7 +65,7 @@ class MainViewModel(
     fun loadUserDataBD() {
         viewModelScope.launch {
             showUsersFromDataBaseUseCase.getData().collect {
-                    _usersResultStateFlow.emit(it)
+                _usersResultStateFlow.emit(it)
             }
         }
     }
