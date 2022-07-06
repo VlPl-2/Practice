@@ -1,3 +1,3 @@
 package com.example.practice.utils
 
-fun Long?.orEmpty() = this?: 0
+fun Long?.orZero() = this?: 0

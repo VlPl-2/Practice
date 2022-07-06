@@ -8,4 +8,12 @@
     <string name="alertDialogueTextPositive">Да</string>
     <string name="alertDialogueTextNegative">Нет</string>
 
+    <string name="fragmentUserListTitle">Список пользователей</string>
+    <string name="fragmentUserDetailsTitle">Информация</string>
+
+    <string name="layoutMenuItem1">Загрузить URL базу данных</string>
+
+    <string name="userDetails_btnEditText">Редактировать</string>
+    <string name="userDetails_btnDeleteText">Удалить</string>
+
 </resources>

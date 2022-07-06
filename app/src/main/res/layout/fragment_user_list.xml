@@ -28,20 +28,6 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/loadUsers"
-                android:layout_width="159dp"
-                android:layout_height="65dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginBottom="32dp"
-                android:text="Load URL DataBase"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

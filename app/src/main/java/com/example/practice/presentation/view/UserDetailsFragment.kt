@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import coil.load
 import com.example.practice.R
 import com.example.practice.databinding.FragmentUserDetailsBinding
-import com.example.practice.utils.orEmpty
+import com.example.practice.utils.orZero
 import com.example.practice.presentation.viewmodel.UserDetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,6 +40,7 @@ class UserDetailsFragment : Fragment() {
         val userView =
             arguments?.let { bundle -> UserDetailsFragmentArgs.fromBundle(bundle).userView }
 
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.fragmentUserDetailsTitle)
         binding?.apply {
             textName.text = userView?.firstName
             textSurname.text = userView?.lastName
@@ -51,7 +53,7 @@ class UserDetailsFragment : Fragment() {
                     .setNegativeButton(R.string.alertDialogueTextNegative) { dialog, i ->
                     }
                     .setPositiveButton(R.string.alertDialogueTextPositive) { dialog, i ->
-                        viewModel.deleteItem(userView?.id.orEmpty())
+                        viewModel.deleteItem(userView?.id.orZero())
                         val action =
                             UserDetailsFragmentDirections.actionUserDetailsFragmentToUserListFragment()
                         view.findNavController().navigate(action)
