@@ -1,6 +1,6 @@
 package com.example.practice.di
 
-import com.example.practice.data.mapping.UserMapping
+import com.example.practice.utils.mapping.UserMapping
 import com.example.practice.data.repository.API.RetrofitFactory
 import com.example.practice.data.repository.DBrepository.DataBaseImpl
 import com.example.practice.data.repository.DBrepository.UserItemRoomDatabase
@@ -23,4 +23,6 @@ val dataModule = module {
     single <RetrofitFactory>{
         RetrofitFactory()
     }
+
+
 }

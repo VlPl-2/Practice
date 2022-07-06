@@ -9,19 +9,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.practice.databinding.FragmentUserListBinding
 import com.example.practice.domain.models.UserModel
-import com.example.practice.presentation.viewmodel.MainViewModel
+import com.example.practice.presentation.viewmodel.UserListFragmentViewModel
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UserListFragment : Fragment() {
+class UserListFragment(
+) : Fragment() {
+    private var binding: FragmentUserListBinding? = null
+    val adapter: RecycleViewAdapter by inject()
 
-    private var _binding: FragmentUserListBinding? = null
-    private val binding get() = _binding
-
-    private val adapter = RecycleViewAdapter()
     //объект ViewModel
-    private val viewModel: MainViewModel by viewModel()
-
+    private val viewModel: UserListFragmentViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,37 +31,28 @@ class UserListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        binding = FragmentUserListBinding.inflate(inflater, container, false)
 
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadUserDataBD()
-
-        rcViewInit()
+        viewModel.loadLocalUserDataBD()
+        rcViewLocalInit()
 
         binding?.apply {
             rcView.layoutManager = GridLayoutManager(requireContext(), 2)
-
-            //добавление элемента в БД
-            saveUser.setOnClickListener {
-                viewModel.insertItem(4, "First", "Lastevv","e@mail.com", "https://cdn.onlinewebfonts.com/svg/download_568657.png")
-                viewModel.insertItem(5, "Second", "Lastevv","e@mail.com", "https://cdn.onlinewebfonts.com/svg/download_568657.png")
-                viewModel.insertItem(6, "Third", "Lastevv","e@mail.com", "https://cdn.onlinewebfonts.com/svg/download_568657.png")
-
+            //загрузка БД из URL
+            loadUsers.setOnClickListener {
+                rcViewInit()
             }
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = UserDetailsFragment()
-    }
-
-    //заполнение/обновление RecyclerView
+    //заполнение/обновление RecyclerView вместе c URL
     private fun rcViewInit(){
+        viewModel.loadUserDataBD()
         lifecycleScope.launch {
             viewModel.usersResultStateFlow.collect { usersList ->
                 binding?.apply {
@@ -74,6 +64,17 @@ class UserListFragment : Fragment() {
         }
     }
 
+    //локальное заполнение/обновление RecyclerView
+    private fun rcViewLocalInit(){
+        lifecycleScope.launch {
+            viewModel.usersResultStateFlow.collect { usersList ->
+                binding?.apply {
+                    rcView.adapter = adapter
+                    adapter.refreshUsers(usersList)
+                }
+            }
+        }
+    }
 
     //действие при нажатии на элемент RecycleView - раскрытие фрагмента с подробностями
     private fun onListItemClick(position: Int, userModel: UserModel) {

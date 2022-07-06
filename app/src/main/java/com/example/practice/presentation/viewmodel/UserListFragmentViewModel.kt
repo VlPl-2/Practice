@@ -1,24 +1,20 @@
 package com.example.practice.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 //замена на внутреннюю модель
 import com.example.practice.domain.models.UserModel
-import com.example.practice.domain.usecase.DeleteUserUseCase
 import com.example.practice.domain.usecase.SaveItemInDataBaseUseCase
-import com.example.practice.domain.usecase.ShowCurrentUserDataUseCase
 import com.example.practice.domain.usecase.ShowUsersFromDataBaseUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class MainViewModel(
+class UserListFragmentViewModel(
     val saveCollectionInDataBaseUseCase: SaveItemInDataBaseUseCase,
     val showUsersFromDataBaseUseCase: ShowUsersFromDataBaseUseCase,
-    val deleteUserUseCase: DeleteUserUseCase,
-    val showCurrentUserDataUseCase: ShowCurrentUserDataUseCase
 ) : ViewModel() {
 
     //замена на внутреннюю модель
@@ -43,28 +39,24 @@ class MainViewModel(
         }
     }
 
-
-    //
-    //переделать под id
-    //удаление элемента из базы данных по ID
-    fun deleteItem(id: Int) {
-        viewModelScope.launch {
-            deleteUserUseCase.deleteItem(id)
-        }
-    }
-
-    //получение элемента из БД по ID
-    fun getItemByID(id: Int) {
-        viewModelScope.launch {
-            showCurrentUserDataUseCase.showCurrent(id)
-        }
-    }
-
     //загрузка базы данных
-
     fun loadUserDataBD() {
         viewModelScope.launch {
             showUsersFromDataBaseUseCase.getData().collect {
+                try {
+                    _usersResultStateFlow.emit(it)
+                }
+                catch (e: Exception){
+                    Log.d("TAG",e.toString())
+                }
+            }
+        }
+    }
+
+    //загрузка локальной базы данных
+    fun loadLocalUserDataBD() {
+        viewModelScope.launch {
+            showUsersFromDataBaseUseCase.getLocalData().collect {
                 _usersResultStateFlow.emit(it)
             }
         }

@@ -1,21 +1,24 @@
 package com.example.practice.presentation.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import coil.load
+import com.example.practice.R
 import com.example.practice.databinding.FragmentUserDetailsBinding
-import com.example.practice.presentation.viewmodel.MainViewModel
+import com.example.practice.utils.orEmpty
+import com.example.practice.presentation.viewmodel.UserDetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class UserDetailsFragment : Fragment() {
-    private var _binding: FragmentUserDetailsBinding? = null
-    private val binding get() = _binding
+    private var binding: FragmentUserDetailsBinding? = null
     //объект ViewModel
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: UserDetailsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,31 +29,35 @@ class UserDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val params =
-            arguments?.let { bundle -> UserDetailsFragmentArgs.fromBundle(bundle).userModel }
+
+        val userView =
+            arguments?.let { bundle -> UserDetailsFragmentArgs.fromBundle(bundle).userView }
+
         binding?.apply {
-            textId.text = params?.get(0)
-            textName.text = params?.get(1)
-            textSurname.text = params?.get(2)
-            textEmail.text = params?.get(3)
-            imgUser.load(params?.get(4))
+            textName.text = userView?.firstName
+            textSurname.text = userView?.lastName
+            textEmail.text = userView?.email
+            imgUser.load(userView?.avatar)
 
             buttonDelete.setOnClickListener {
-                viewModel.deleteItem(textId.text.toString().toInt())
-
+                AlertDialog.Builder(requireContext()).setTitle(R.string.alertDialogueTextTitle)
+                    .setMessage(R.string.alertDialogueTextMessage)
+                    .setNegativeButton(R.string.alertDialogueTextNegative) { dialog, i ->
+                    }
+                    .setPositiveButton(R.string.alertDialogueTextPositive) { dialog, i ->
+                        viewModel.deleteItem(userView?.id.orEmpty())
+                        val action =
+                            UserDetailsFragmentDirections.actionUserDetailsFragmentToUserListFragment()
+                        view.findNavController().navigate(action)
+                    }
+                    .show()
             }
         }
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = UserDetailsFragment()
-    }
-
 }

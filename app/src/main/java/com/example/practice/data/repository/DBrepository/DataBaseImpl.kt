@@ -1,7 +1,6 @@
 package com.example.practice.data.repository.DBrepository
 
-import com.example.practice.data.mapping.UserMapping
-import com.example.practice.data.models.UserItem
+import com.example.practice.utils.mapping.UserMapping
 import com.example.practice.data.repository.API.RetrofitFactory
 import com.example.practice.domain.models.UserModel
 import com.example.practice.domain.repository.DataBase
@@ -32,12 +31,20 @@ class DataBaseImpl(
         }
     }
 
+    override suspend fun getLocalData(): Flow<List<UserModel>> {
+        return userItemRoomDatabase.userItemDao().getAllItems().map { listUserItem ->
+            listUserItem.map { userItem ->
+                userMapping.mappingItemToModel(userItem)
+            }
+        }
+    }
+
     override suspend fun saveData(userModel: UserModel) {
         userItemRoomDatabase.userItemDao()
             .insert(userMapping.mappingModelToItem(userModel))
     }
 
-    override suspend fun deleteItem(id: Int) {
+    override suspend fun deleteItem(id: Long) {
         userItemRoomDatabase.userItemDao()
             .deleteFromId(id)
     }

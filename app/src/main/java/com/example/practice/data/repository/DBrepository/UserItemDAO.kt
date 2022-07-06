@@ -33,5 +33,8 @@ interface UserItemDAO {
     suspend fun delete(item: UserItem)
 
     @Query("DELETE FROM userItem WHERE id = :id")
-    suspend fun deleteFromId(id: Int)
+    suspend fun deleteFromId(id: Long)
+
+    //изменить элемент
+
 }

@@ -1,8 +1,9 @@
-package com.example.practice.data.mapping
+package com.example.practice.utils.mapping
 
 import com.example.practice.data.models.UserApi
 import com.example.practice.data.models.UserItem
 import com.example.practice.domain.models.UserModel
+import com.example.practice.presentation.models.UserView
 
 class UserMapping() {
     fun mappingItemToModel(userItem: UserItem): UserModel {
@@ -32,6 +33,16 @@ class UserMapping() {
             firstName = datum.firstName,
             lastName = datum.lastName,
             avatar = datum.avatar
+        )
+    }
+
+    fun mappingUserModelToUserView(userModel: UserModel): UserView {
+        return UserView(
+            id = userModel.id,
+            email = userModel.email,
+            firstName = userModel.firstName,
+            lastName = userModel.lastName,
+            avatar = userModel.avatar
         )
     }
 

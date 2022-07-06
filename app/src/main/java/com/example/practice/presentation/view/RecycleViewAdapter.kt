@@ -7,15 +7,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.practice.R
+import com.example.practice.utils.mapping.UserMapping
 import com.example.practice.databinding.RecycleViewItemBinding
 import com.example.practice.domain.models.UserModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 
 
-class RecycleViewAdapter() : RecyclerView.Adapter<RecycleViewAdapter.UsersHolder>() {
+class RecycleViewAdapter(
+    private val userMapping: UserMapping
+) : RecyclerView.Adapter<RecycleViewAdapter.UsersHolder>() {
 
     val usersList = ArrayList<UserModel>()
 
@@ -36,20 +35,13 @@ class RecycleViewAdapter() : RecyclerView.Adapter<RecycleViewAdapter.UsersHolder
         return UsersHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: UsersHolder, position: Int) {
         holder.bind(usersList[position], position)
 
         holder.itemView.setOnClickListener() {
-            val params = arrayOf(
-                usersList[position].id.toString(),
-                usersList[position].firstName,
-                usersList[position].lastName,
-                usersList[position].email,
-                usersList[position].avatar
-            )
+            val userView = userMapping.mappingUserModelToUserView(usersList[position])
             val action = UserListFragmentDirections
-                .actionUserListFragmentToUserDetailsFragment(params)
+                .actionUserListFragmentToUserDetailsFragment(userView)
             holder.itemView.findNavController().navigate(action)
         }
     }
