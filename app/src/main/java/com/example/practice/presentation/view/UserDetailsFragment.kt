@@ -12,19 +12,15 @@ import coil.load
 import com.example.practice.R
 import com.example.practice.databinding.FragmentUserDetailsBinding
 import com.example.practice.utils.orZero
-import com.example.practice.presentation.viewmodel.UserDetailsViewModel
+import com.example.practice.presentation.viewmodel.UserDetailsFragmentViewModel
+import com.example.practice.utils.orEmpty
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class UserDetailsFragment : Fragment() {
     private var binding: FragmentUserDetailsBinding? = null
     //объект ViewModel
-    private val viewModel: UserDetailsViewModel by viewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
+    private val viewModel: UserDetailsFragmentViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +44,7 @@ class UserDetailsFragment : Fragment() {
             imgUser.load(userView?.avatar)
 
             buttonDelete.setOnClickListener {
-                AlertDialog.Builder(requireContext()).setTitle(R.string.alertDialogueTextTitle)
+                AlertDialog.Builder(requireContext()).setTitle(R.string.alertDialogueTextTitleDelete)
                     .setMessage(R.string.alertDialogueTextMessage)
                     .setNegativeButton(R.string.alertDialogueTextNegative) { dialog, i ->
                     }
@@ -60,6 +56,14 @@ class UserDetailsFragment : Fragment() {
                     }
                     .show()
             }
+
+            buttonEdit.setOnClickListener {
+                val action = UserDetailsFragmentDirections
+                    .actionUserDetailsFragmentToUserEditFragment(userView.orEmpty())
+                view.findNavController().navigate(action)
+            }
         }
+
+
     }
 }

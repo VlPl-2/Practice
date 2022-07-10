@@ -3,17 +3,28 @@
     <string name="first_last_name">%1$s %2$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="alertDialogueTextTitle">Удаление элемента</string>
+    <string name="alertDialogueTextTitleDelete">Удаление элемента</string>
     <string name="alertDialogueTextMessage">Вы действительно хотите удалить пользователя?</string>
     <string name="alertDialogueTextPositive">Да</string>
     <string name="alertDialogueTextNegative">Нет</string>
 
+    <string name="toastTextSuccess">Элемент успешно изменён</string>
+
     <string name="fragmentUserListTitle">Список пользователей</string>
     <string name="fragmentUserDetailsTitle">Информация</string>
+    <string name="fragmentUserEditTitle">Редактирование</string>
+
 
     <string name="layoutMenuItem1">Загрузить URL базу данных</string>
 
     <string name="userDetails_btnEditText">Редактировать</string>
     <string name="userDetails_btnDeleteText">Удалить</string>
+
+    <string name="fragmentUser_userName">Имя:</string>
+    <string name="fragmentUser_userSurname">Фамилия:</string>
+    <string name="fragmentUser_userEmail">Email:</string>
+
+    <string name="fragmentUserEdit_btnClose">Отмена</string>
+    <string name="fragmentUserEdit_btnConfirm">Подтвердить</string>
 
 </resources>

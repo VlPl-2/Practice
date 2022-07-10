@@ -55,4 +55,8 @@ class DataBaseImpl(
             }
     }
 
+    override suspend fun editItem(userModel: UserModel) {
+        userItemRoomDatabase.userItemDao().update(userMapping.mappingModelToItem(userModel))
+    }
+
 }

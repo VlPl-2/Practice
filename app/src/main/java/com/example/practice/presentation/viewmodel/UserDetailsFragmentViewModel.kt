@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.practice.domain.usecase.DeleteUserUseCase
 import kotlinx.coroutines.launch
 
-class UserDetailsViewModel(
+class UserDetailsFragmentViewModel(
     val deleteUserUseCase: DeleteUserUseCase
     ): ViewModel() {
 
@@ -15,7 +15,4 @@ class UserDetailsViewModel(
             deleteUserUseCase.deleteItem(id)
         }
     }
-
-    //редактирование элемента
-
 }

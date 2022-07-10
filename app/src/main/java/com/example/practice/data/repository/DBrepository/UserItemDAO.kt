@@ -35,6 +35,11 @@ interface UserItemDAO {
     @Query("DELETE FROM userItem WHERE id = :id")
     suspend fun deleteFromId(id: Long)
 
+    /*
     //изменить элемент
-
+    //вот тут придумать что-нибудь
+    @Query("UPDATE userItem " +
+            "SET ")
+    suspend fun editItem(item: UserItem)
+     */
 }

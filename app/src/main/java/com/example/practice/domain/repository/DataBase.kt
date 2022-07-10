@@ -13,4 +13,7 @@ interface DataBase {
     suspend fun deleteItem(id: Long)
 
     suspend fun showCurrent(id: Int): Flow<UserModel>
+
+    suspend fun  editItem(userModel: UserModel)
+
 }

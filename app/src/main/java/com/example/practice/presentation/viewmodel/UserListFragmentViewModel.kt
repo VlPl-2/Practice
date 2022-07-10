@@ -3,7 +3,6 @@ package com.example.practice.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-//замена на внутреннюю модель
 import com.example.practice.domain.models.UserModel
 import com.example.practice.domain.usecase.SaveItemInDataBaseUseCase
 import com.example.practice.domain.usecase.ShowUsersFromDataBaseUseCase

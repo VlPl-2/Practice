@@ -14,8 +14,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UserListFragment(
-) : Fragment() {
+class UserListFragment() : Fragment() {
     private var binding: FragmentUserListBinding? = null
     val adapter: RecycleViewAdapter by inject()
 

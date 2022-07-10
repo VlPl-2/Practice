@@ -19,9 +19,27 @@
         tools:layout="@layout/fragment_user_details" >
         <action
             android:id="@+id/action_userDetailsFragment_to_userListFragment"
-            app:destination="@id/userListFragment" />
+            app:destination="@id/userListFragment"
+            app:popUpTo="@id/userListFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="userView"
             app:argType="com.example.practice.presentation.models.UserView" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_userEditFragment"
+            app:destination="@id/userEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userEditFragment"
+        android:name="com.example.practice.presentation.view.UserEditFragment"
+        android:label="UserEditFragment" >
+        <argument
+            android:name="userView"
+            app:argType="com.example.practice.presentation.models.UserView" />
+        <action
+            android:id="@+id/action_userEditFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment"
+            app:popUpTo="@id/userDetailsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
