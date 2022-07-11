@@ -43,7 +43,6 @@ class UserEditFragment() : Fragment() {
             editTextName.setText(userView?.firstName)
             editTextSurname.setText(userView?.lastName)
             editTextEmail.setText(userView?.email)
-            editTextImageLink.setText(userView?.avatar)
             imgUser.load(userView?.avatar)
 
             buttonConfirm.setOnClickListener {
@@ -53,12 +52,12 @@ class UserEditFragment() : Fragment() {
                     editTextEmail.text.toString(),
                     editTextName.text.toString(),
                     editTextSurname.text.toString(),
-                    editTextImageLink.text.toString()
+                    userView?.avatar.orEmpty()
                 )
                 //редактируем её в БД
                 viewModel.editItem(editedUser)
                 //отправляем toast об успехе редактирования
-                Toast.makeText(requireContext(), R.string.toastTextSuccess, Toast.LENGTH_LONG)
+                Toast.makeText(requireContext(), R.string.toastTextEditSuccess, Toast.LENGTH_LONG)
                     .show()
                 //переходим на UserDetailFragment, будут отображаться уже изменённые данные
                 val action =

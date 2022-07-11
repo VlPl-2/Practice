@@ -8,7 +8,9 @@
     <string name="alertDialogueTextPositive">Да</string>
     <string name="alertDialogueTextNegative">Нет</string>
 
-    <string name="toastTextSuccess">Элемент успешно изменён</string>
+    <string name="toastTextEditSuccess">Элемент успешно изменён</string>
+    <string name="toastTextDeleteSuccess">Элемент успешно удалён</string>
+    <string name="toastTextLoadSuccess">Список успешно загружен</string>
 
     <string name="fragmentUserListTitle">Список пользователей</string>
     <string name="fragmentUserDetailsTitle">Информация</string>

@@ -22,7 +22,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/buttonClose"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,96 +30,85 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="150dp"
-                    android:layout_height="48dp"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:gravity="center|right"
                     android:text="@string/fragmentUser_userName"
+                    android:textAlignment="textStart"
                     android:textColor="#2B2B2B"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintBottom_toBottomOf="@+id/editTextName"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="@+id/editTextName" />
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:gravity="center|right"
                     android:text="@string/fragmentUser_userSurname"
+                    android:textAlignment="textStart"
                     android:textColor="#2B2B2B"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/editTextSurname"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center|right"
-                    android:text="@string/fragmentUser_userEmail"
-                    android:textColor="#2B2B2B"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView3"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
                 <EditText
                     android:id="@+id/editTextName"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_height="48dp"
                     android:ems="10"
                     android:hint="Name"
                     android:inputType="textPersonName"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/editTextSurname"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_height="48dp"
                     android:ems="10"
                     android:hint="Surname"
                     android:inputType="textPersonName"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView3"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView3"
-                    app:layout_constraintTop_toTopOf="@+id/textView3"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="@+id/editTextName"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
                 <EditText
                     android:id="@+id/editTextEmail"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_height="48dp"
                     android:ems="10"
                     android:hint="Email"
                     android:inputType="textPersonName"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView4"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="@+id/editTextName"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextSurname" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/fragmentUser_userEmail"
+                    android:textAlignment="textStart"
+                    android:textColor="#2B2B2B"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editTextEmail"
+                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextSurname" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
@@ -162,18 +150,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/buttonClose"
                 app:layout_constraintVertical_bias="0.0" />
-
-            <EditText
-                android:id="@+id/editTextImageLink"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
-                android:ems="10"
-                android:hint="Image link"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="@+id/imgUser"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imgUser" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

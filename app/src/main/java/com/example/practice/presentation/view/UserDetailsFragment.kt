@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import coil.load
@@ -13,7 +14,6 @@ import com.example.practice.R
 import com.example.practice.databinding.FragmentUserDetailsBinding
 import com.example.practice.utils.orZero
 import com.example.practice.presentation.viewmodel.UserDetailsFragmentViewModel
-import com.example.practice.utils.orEmpty
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -53,14 +53,19 @@ class UserDetailsFragment : Fragment() {
                         val action =
                             UserDetailsFragmentDirections.actionUserDetailsFragmentToUserListFragment()
                         view.findNavController().navigate(action)
+                        //toast об успехе удаления
+                        Toast.makeText(requireContext(), R.string.toastTextDeleteSuccess, Toast.LENGTH_LONG)
+                            .show()
                     }
                     .show()
             }
 
             buttonEdit.setOnClickListener {
-                val action = UserDetailsFragmentDirections
-                    .actionUserDetailsFragmentToUserEditFragment(userView.orEmpty())
-                view.findNavController().navigate(action)
+                userView?.let{  userView ->
+                    val action = UserDetailsFragmentDirections
+                        .actionUserDetailsFragmentToUserEditFragment(userView)
+                    view.findNavController().navigate(action)
+                }
             }
         }
 

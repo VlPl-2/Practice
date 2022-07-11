@@ -2,6 +2,7 @@ package com.example.practice.presentation.view
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -55,6 +56,9 @@ class UserListFragment() : Fragment() {
         return when(item.itemId){
             R.id.menuLoadURLDataBase -> {
                 rcViewInit()
+                //отправляем toast об успехе редактирования
+                Toast.makeText(requireContext(), R.string.toastTextLoadSuccess, Toast.LENGTH_LONG)
+                    .show()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -86,10 +90,4 @@ class UserListFragment() : Fragment() {
             }
         }
     }
-
-    //действие при нажатии на элемент RecycleView - раскрытие фрагмента с подробностями
-    private fun onListItemClick(position: Int, userModel: UserModel) {
-
-    }
-
 }
